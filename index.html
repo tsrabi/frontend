@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Pengadaan Kab/Kota - LKPP 2026</title>
+    <link rel="icon" href="data:,"/>
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.css"/>
+    <link rel="stylesheet" href="assets/css/styles.css?v=2"/>
+    <script defer src="https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.js"></script>
+    <script defer src="assets/js/map.js"></script>
+    <script defer src="assets/js/app.js"></script>
+</head>
+<body>
+    <div class="hdr">
+        <div class="hdr-l">
+            <div class="logo">AUD</div>
+            <div class="hdr-t">
+                <h1>Audit Pengadaan Kab. Bandung Barat</h1>
+                <span>Artifact hasil analyze &middot; LKPP / SiRUP &middot; Tahun Anggaran 2026</span>
+            </div>
+        </div>
+        <div class="hdr-r">
+            <div class="ll"><span class="ldot"></span> LIVE</div>
+            <div class="yr">TA 2026</div>
+            <button class="mobile-kpi-btn" onclick="document.getElementById('kpi').classList.toggle('open')">📊 KPI</button>
+        </div>
+    </div>
+
+    <div class="kpi-backdrop" onclick="document.getElementById('kpi').classList.remove('open')"></div>
+    <div class="kpi" id="kpi"></div>
+
+    <div class="ml">
+        <div class="mc">
+            <div id="map"></div>
+            <div class="moc" id="mf"></div>
+            <div class="mlb" id="legend-container">
+                <button class="legend-btn" onclick="document.getElementById('legend-container').classList.toggle('open')">ℹ️ Legenda</button>
+                <div class="legend-content" id="legend"></div>
+            </div>
+        </div>
+
+        <div class="sb" id="sidebar">
+            <div class="sb-handle" onclick="document.getElementById('sidebar').classList.toggle('expanded')"></div>
+            <div class="sbh"><div class="sbt" id="tabs"></div></div>
+            <div class="sbc" id="sbc"></div>
+        </div>
+    </div> 
+
+    <div class="modal-overlay" id="rupModal">
+        <div class="modal">
+            <div class="modal-top" id="modalTop"></div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer">Map memakai agregasi penuh untuk paket multi-lokasi</div>
+        </div>
+    </div>
+
+    <div id="visual-stats-card" style="position: fixed !important; top: 250px !important; left: 20px !important; width: 260px !important; background: rgba(23, 26, 35, 0.95) !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; border-radius: 12px !important; padding: 15px !important; color: white !important; z-index: 9999 !important; backdrop-filter: blur(10px) !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <div style="font-size: 22px;">📊</div>
+            <div>
+                <h3 style="margin: 0; font-size: 11px; font-weight: bold; color: #edf2f7; text-transform: uppercase;">DASHBOARD VISUALISASI</h3>
+                <p style="margin: 0; font-size: 9px; color: #a0aec0;">Data anggaran & paket audit</p>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <label style="display: block; font-size: 7px; color: #718096; text-transform: uppercase; margin-bottom: 2px;">TOTAL ANGGARAN</label>
+                <div id="total-anggaran" style="font-size: 11px; font-weight: bold; color: #fff;">Rp 0</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <label style="display: block; font-size: 7px; color: #718096; text-transform: uppercase; margin-bottom: 2px;">PAGU PER PAKET</label>
+                <div id="pagu-per-paket" style="font-size: 11px; font-weight: bold; color: #fff;">Rp 0</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <label style="display: block; font-size: 7px; color: #718096; text-transform: uppercase; margin-bottom: 2px;">TOTAL PAKET</label>
+                <div id="total-paket" style="font-size: 11px; font-weight: bold; color: #fff;">0</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <label style="display: block; font-size: 7px; color: #718096; text-transform: uppercase; margin-bottom: 2px;">TERPETAKAN</label>
+                <div id="paket-terpetakan" style="font-size: 11px; font-weight: bold; color: #fff;">0</div>
+            </div>
+        </div>
+
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;">
+            <div style="display: flex; justify-content: space-between; font-size: 9px; color: #a0aec0;">
+                <span>Multi-Lokasi / Unmapped</span>
+                <span id="multi-lokasi" style="color: white; font-weight: bold;">0 / 0</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
