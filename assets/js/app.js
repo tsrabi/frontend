@@ -1,5 +1,5 @@
 (() => {
-  const API_BASE_URL = (window.DASHBOARD_API_BASE_URL || "http://localhost:3000/api").replace(/\/$/, "");
+  const API_BASE_URL = "https://s57skk-3000.csb.app/api";
 
   if (!window.maplibregl || !window.AuditMap) {
     console.error("MapLibre GL or AuditMap failed to load.");
