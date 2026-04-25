@@ -413,23 +413,30 @@ function areaOwnerSummary(area) {
   }
 
   async function fetchJson(path) {
-    const response = await fetch(`${API_BASE_URL}${path}`, {
-      headers: {
-        "x-bypass-browser-warning": "true"
-      }
-    });
-    if (text) {
-      try {
-        payload = JSON.parse(text);
-      } catch (_error) {
-        throw new Error(`Invalid JSON response from ${path}`);
-      }
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    headers: {
+      "x-bypass-browser-warning": "true"
     }
-    if (!response.ok) {
-      throw new Error(payload && payload.error ? payload.error : `Request failed (${response.status})`);
+  });
+
+  // Ini baris yang tadi hilang, Tuan!
+  const text = await response.text();
+  let payload = null;
+
+  if (text) {
+    try {
+      payload = JSON.parse(text);
+    } catch (_error) {
+      throw new Error(`Invalid JSON response from ${path}`);
     }
-    return payload;
   }
+
+  if (!response.ok) {
+    throw new Error(payload && payload.error ? payload.error : `Request failed (${response.status})`);
+  }
+
+  return payload;
+}
 
   function normalizeDashboardData(payload) {
     if (!payload || typeof payload !== "object") {
