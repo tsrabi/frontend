@@ -413,9 +413,11 @@ function areaOwnerSummary(area) {
   }
 
   async function fetchJson(path) {
-    const response = await fetch(`${API_BASE_URL}${path}`);
-    const text = await response.text();
-    let payload = null;
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+      headers: {
+        "x-bypass-browser-warning": "true"
+      }
+    });
     if (text) {
       try {
         payload = JSON.parse(text);
